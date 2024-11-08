@@ -43,10 +43,13 @@ class UserListFragment : Fragment() {
             buttonTryAgain.setOnClickListener {
                 viewModel.getUsers()
             }
+            buttonLocalData.setOnClickListener {
+                viewModel.getUsersLocal()
+            }
             buttonRefresh.setOnClickListener {
                 viewModel.getUsers()
             }
-            viewModel.getUsers()
+            viewModel.getUsersLocal()
         }
         registrationObserver()
     }

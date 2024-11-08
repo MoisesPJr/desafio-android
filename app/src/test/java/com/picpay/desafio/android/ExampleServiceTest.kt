@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.picpay.desafio.android.feature.userList.data.api.PicPayService
 import com.picpay.desafio.android.feature.userList.data.model.UserRemote
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
@@ -16,16 +17,14 @@ class ExampleServiceTest {
     private val service = ExampleService(api)
 
     @Test
-    fun exampleTest() {
+    fun exampleTest() = runBlocking  {
         // given
-        val call = mock<Call<List<UserRemote>>>()
         val expectedUsers = emptyList<UserRemote>()
 
-        whenever(call.execute()).thenReturn(Response.success(expectedUsers))
-        whenever(api.getUsers()).thenReturn(call)
+        whenever(api.getUsers()).thenReturn(expectedUsers)
 
         // when
-        val users = service.example()
+        val users = runBlocking { service.getUsers() }
 
         // then
         assertEquals(users, expectedUsers)

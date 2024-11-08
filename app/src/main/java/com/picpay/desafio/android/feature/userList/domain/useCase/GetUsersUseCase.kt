@@ -6,16 +6,21 @@ import com.picpay.desafio.android.feature.userList.domain.repository.UserReposit
 import javax.inject.Inject
 
 
-interface GetUsersUseCase{
+interface GetUsersUseCase {
     suspend operator fun invoke(): List<UserDomain>
+    suspend fun getUsersLocal(): List<UserDomain>
+
 }
 
 class GetUsersUseCaseImpl @Inject constructor(
     private val repository: UserRepository
-): GetUsersUseCase {
+) : GetUsersUseCase {
     override suspend fun invoke(): List<UserDomain> {
         return repository.getUsers().map { it.toDomain() }
     }
 
+    override suspend fun getUsersLocal(): List<UserDomain> {
+        return repository.getUsersLocal().map { it.toDomain() }
+    }
 
 }

@@ -3,5 +3,6 @@
     <string name="title">Contatos</string>
     <string name="error">Ocorreu um erro.\nverifique a sua internet e Tente novamente.</string>
     <string name="try_again">Tentar novamente</string>
+    <string name="local_data">Carregar dados da memória</string>
 
 </resources>
