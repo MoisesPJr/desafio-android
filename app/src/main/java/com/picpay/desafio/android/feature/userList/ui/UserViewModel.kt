@@ -24,7 +24,17 @@ class UserViewModel  @Inject constructor(private var useCase: GetUsersUseCase) :
 
 
 
-
+    fun getUsersLocal() {
+        viewModelScope.launch {
+            try {
+                val response = useCase.getUsersLocal()
+                response.let { _user.postValue(response) }
+            } catch (e: Exception) {
+                Log.e("USER_VIEW", e.message.toString())
+                handlerError()
+            }
+        }
+    }
 
     fun getUsers() {
         viewModelScope.launch {
@@ -42,4 +52,5 @@ class UserViewModel  @Inject constructor(private var useCase: GetUsersUseCase) :
     private fun handlerError() {
         _error.postValue(ErrorsEnum.UNKNOWN_ERROR)
     }
+
 }
