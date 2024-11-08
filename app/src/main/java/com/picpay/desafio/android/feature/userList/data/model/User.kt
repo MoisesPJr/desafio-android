@@ -1,13 +1,12 @@
 package com.picpay.desafio.android.feature.userList.data.model
 
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
-data class User(
-    @SerializedName("img") val img: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("id") val id: Int,
-    @SerializedName("username") val username: String
-) : Parcelable
+@Entity(tableName = "users")
+data class UserRemote(
+    val img: String?,
+    val name: String?,
+    @PrimaryKey val id: Int,
+    val username: String?
+)
