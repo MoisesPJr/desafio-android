@@ -24,13 +24,12 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintStart_toEndOf="@+id/picture"
-        app:layout_constraintTop_toTopOf="@+id/picture"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="\@username" />
 
     <TextView
