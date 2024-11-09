@@ -95,7 +95,7 @@ dependencies {
     debugImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.android.compiler)
     ksp(libs.hilt.compiler)
-    debugImplementation(libs.androidx.fragment.testing)
+    androidTestImplementation(libs.androidx.fragment.testing)
     implementation(libs.mockwebserver)
     androidTestImplementation("org.hamcrest:hamcrest:2.2")
 }
