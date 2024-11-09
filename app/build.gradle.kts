@@ -23,7 +23,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.picpay.desafio.android.utils.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -61,9 +61,12 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.test.core)
+    debugImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.test.core.ktx)
+    testImplementation(libs.androidx.test.core.ktx)
+    implementation(libs.androidx.test.core.ktx)
+    androidTestImplementation(libs.espresso.contrib)
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.androidx.navigation)
@@ -88,5 +91,11 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
     testImplementation(libs.mockito.kotlin)
+    debugImplementation(libs.androidx.fragment.testing.manifest)
+    debugImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    androidTestImplementation(libs.androidx.fragment.testing)
     implementation(libs.mockwebserver)
+    androidTestImplementation("org.hamcrest:hamcrest:2.2")
 }
