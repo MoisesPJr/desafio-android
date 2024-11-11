@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.picpay.desafio.android.databinding.FragmentUserBinding
-import com.picpay.desafio.android.feature.userList.ErrorsEnum
 import com.picpay.desafio.android.feature.userList.domain.model.UserDomain
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserListFragment : Fragment() {
@@ -51,17 +54,21 @@ class UserListFragment : Fragment() {
             }
             viewModel.getUsersLocal()
         }
+
         registrationObserver()
     }
 
     private fun registrationObserver() {
-        viewModel.user.observe(viewLifecycleOwner, userObserver)
-        viewModel.error.observe(viewLifecycleOwner, errorObserver)
-    }
-
-
-    private val userObserver = Observer<List<UserDomain>> { users ->
-        setUsers(users)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.asFlow().collect { uiState ->
+                    when (uiState) {
+                        is UserUiState.Success -> setUsers(uiState.users)
+                        is UserUiState.Error -> handleError()
+                    }
+                }
+            }
+        }
     }
 
     private fun handleError() {
@@ -72,7 +79,7 @@ class UserListFragment : Fragment() {
 
 
     private fun setUsers(user: List<UserDomain>) {
-        if(user.isNotEmpty()){
+        if (user.isNotEmpty()) {
             binding.layoutContacts.visibility = View.VISIBLE
             binding.layoutError.visibility = View.GONE
             binding.userListProgressBar.visibility = View.GONE
@@ -82,7 +89,4 @@ class UserListFragment : Fragment() {
 
     }
 
-    private val errorObserver = Observer<ErrorsEnum> { _ ->
-        handleError()
-    }
 }

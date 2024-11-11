@@ -13,10 +13,13 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="shouldDisplayListItem()">
+      <SelectionState runConfigName="MainActivityTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="shouldDisplayTitle()">
+      <SelectionState runConfigName="shouldDisplayError()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="shouldDisplayRecyclerView()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
