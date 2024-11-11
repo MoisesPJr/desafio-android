@@ -76,6 +76,23 @@ class UserListFragmentTest {
     }
 
     @Test
+    fun shouldDisplayRecyclerView() {
+        launchFragmentInHiltContainer<UserListFragment>()
+        server.dispatcher = object : Dispatcher() {
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                return when (request.path) {
+                    "/users" -> successResponse
+                    else -> errorResponse
+                }
+            }
+        }
+        server.takeRequest()
+        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
+        server.close()
+    }
+
+
+    @Test
     fun shouldDisplayListItem() = runBlocking {
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
